@@ -2,8 +2,13 @@ env:
   DIRECTORY: distribution
 
 name: Build for release
-on: 
-  workflow_dispatch: null
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+    
 jobs:
   Build:
     outputs:
@@ -15,13 +20,17 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 20
+
       - name: Run npm installation
         run: npm ci || npm install
+
       - name: Run tests (duh)
         run: npm test
+
       - name: Create tag if necessary
         uses: fregante/daily-version-action@v1
         id: daily-version
+
       - name: Release with 
         uses: notlmn/release-with-changelog@v3
         if: steps.daily-version.outputs.created

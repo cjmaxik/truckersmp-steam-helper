@@ -2,6 +2,8 @@ env:
   DIRECTORY: distribution
 
 name: Build for release
+on: 
+  workflow_dispatch: null
 jobs:
   Version:
     outputs:
@@ -23,23 +25,23 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           exclude: true
-    Upload:
-      needs: Version
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout repository
-          uses: actions/checkout@v2
-        - name: npm install
-          run: npm ci || npm install
-        - name: Build the extension
-          run: npm run build --if-present
-        - name: Update extension’s meta
-          run: >-
-            npx dot-json@1 $DIRECTORY/manifest.json version ${{
-            needs.Version.outputs.version }}
-        - name: Push artifacts
-          uses: actions/upload-artifacts@v2
-          wtih:
-            name: dist
-            path: distribution
-            retention-days: 7
+  Upload:
+    needs: Version
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: npm install
+        run: npm ci || npm install
+      - name: Build the extension
+        run: npm run build --if-present
+      - name: Update extension’s meta
+        run: >-
+          npx dot-json@1 $DIRECTORY/manifest.json version ${{
+          needs.Version.outputs.version }}
+      - name: Push artifacts
+        uses: actions/upload-artifacts@v2
+        with:
+          name: dist
+          path: $DIRECTORY
+          retention-days: 7

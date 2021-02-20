@@ -1,0 +1,92 @@
+{
+  "name": "TruckersMP Steam Helper",
+  "version": "0.0.0",
+  "description": "This extension provides a useful information about TruckersMP player in Steam.",
+  "homepage_url": "https://github.com/cjmaxik/truckersmp-steam-helper",
+  "manifest_version": 2,
+  "minimum_chrome_version": "80",
+  "applications": {
+    "gecko": {
+      "id": "truckersmp-steam-helper@cjmaxik.github.com",
+      "strict_min_version": "80.0"
+    }
+  },
+  "icons": {
+    "256": "icon.png"
+  },
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "options_ui": {
+    "chrome_style": false,
+    "page": "options.html"
+  },
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "browser-polyfill.min.js",
+      "background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://steamcommunity.com/id/*",
+        "*://steamcommunity.com/profiles/*"
+      ],
+      "exclude_matches": [
+        "*://steamcommunity.com/id/*/home",
+        "*://steamcommunity.com/profiles/*/home",
+        "*://steamcommunity.com/id/*/myactivity",
+        "*://steamcommunity.com/profiles/*/myactivity",
+        "*://steamcommunity.com/id/*/games*",
+        "*://steamcommunity.com/profiles/*/games*",
+        "*://steamcommunity.com/id/*/edit*",
+        "*://steamcommunity.com/profiles/*/edit*",
+        "*://steamcommunity.com/id/*/badges",
+        "*://steamcommunity.com/profiles/*/badges",
+        "*://steamcommunity.com/id/*/gamecards*",
+        "*://steamcommunity.com/profiles/*/gamecards*",
+        "*://steamcommunity.com/id/*/friendsthatplay*",
+        "*://steamcommunity.com/profiles/*/friendsthatplay*",
+        "*://steamcommunity.com/id/*/friends",
+        "*://steamcommunity.com/id/*/friends/*",
+        "*://steamcommunity.com/profiles/*/friends",
+        "*://steamcommunity.com/profiles/*/friends/*",
+        "*://steamcommunity.com/id/*/groups",
+        "*://steamcommunity.com/profiles/*/groups",
+        "*://steamcommunity.com/id/*/inventory*",
+        "*://steamcommunity.com/profiles/*/inventory*",
+        "*://steamcommunity.com/id/*/stats*",
+        "*://steamcommunity.com/profiles/*/stats*",
+        "*://steamcommunity.com/id/*/myworkshopfiles?*browsefilter=mysubscriptions*",
+        "*://steamcommunity.com/id/*/myworkshopfiles/?*browsefilter=mysubscriptions*",
+        "*://steamcommunity.com/profiles/*/myworkshopfiles?*browsefilter=mysubscriptions*",
+        "*://steamcommunity.com/profiles/*/myworkshopfiles/?*browsefilter=mysubscriptions*",
+        "*://steamcommunity.com/id/*/recommended*",
+        "*://steamcommunity.com/profiles/*/recommended*"
+      ],
+      "js": [
+        "profile.js"
+      ]
+    },
+    {
+      "matches": [
+        "*://steamcommunity.com/id/*/friends",
+        "*://steamcommunity.com/id/*/friends/*",
+        "*://steamcommunity.com/profiles/*/friends",
+        "*://steamcommunity.com/profiles/*/friends/*"
+      ],
+      "js": [
+        "friends.js"
+      ],
+      "css": [
+        "css/friends.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    "pageScript.js"
+  ]
+}

@@ -1,0 +1,22 @@
+.profile_friends .friend_block_v2 {
+    height: 69px !important;
+}
+
+.player_avatar img {
+    width: auto !important;
+    height: 69px !important;
+}
+
+.invite_block_details {
+    margin-top: 0 !important;
+}
+
+.invite_block_icon .playerAvatar {
+    width: 40px !important;
+    height: 40px !important;
+}
+
+.invite_block_icon .playerAvatar a img {
+    width: 38px !important;
+    height: 38px !important;
+}

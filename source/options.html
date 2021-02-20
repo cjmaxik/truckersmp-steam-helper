@@ -1,0 +1,52 @@
+<!doctype html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Options</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="chrome://global/skin/in-content/common.css">
+  <link rel="stylesheet" href="https://unpkg.com/chota@latest">
+  <link rel="stylesheet" href="options.css">
+</head>
+
+<body>
+  <form id="options-form">
+    <div class="content hr">
+      <h4>Visibility in Steam</h4>
+      <div>
+        <input type="checkbox" name="showInProfile"> Profile
+      </div>
+      <div>
+        <input type="checkbox" name="showInFriends"> Friends <small>(including Blocked, Recently Played With)</small>
+      </div>
+      <div>
+        <input type="checkbox" name="showInInvites"> Pending Invites
+      </div>
+    </div>
+
+    <div class="content hr">
+      <h4>Profile</h4>
+      <div>
+        <input type="checkbox" name="showDiscord"> Show Discord Snowflake
+      </div>
+      <div>
+        <input type="checkbox" name="showPatreon"> Show Patreon info
+      </div>
+      <div>
+        <input type="checkbox" name="showFirstInProfile"> Show as a first block in the profile
+      </div>
+    </div>
+  </form>
+
+  <div class="text-center">
+    <h5>Settings will be saved immediately</h5>
+    <p>
+      <a href="#" id="openRepo">Source code, issues</a>
+    </p>
+  </div>
+
+</body>
+<script src="browser-polyfill.min.js"></script>
+<script src="options.js"></script>
+
+</html>

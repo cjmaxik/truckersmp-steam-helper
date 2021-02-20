@@ -7,7 +7,13 @@ if (window.matchMedia &&
 
 optionsStorage.syncForm('#options-form')
 
-const openRepo = () => {
-  chrome.tabs.create({ url: 'https://github.com/cjmaxik/truckersmp-steam-helper' })
-}
-document.getElementById('openRepo').addEventListener('click', openRepo)
+// Links
+const links = document.getElementsByClassName('openURL')
+Array.from(links).forEach((element) => {
+  element.addEventListener('click', (event) => {
+    const url = event.target.getAttribute('data-href')
+    if (url) chrome.tabs.create({ url })
+  })
+})
+
+document.getElementById('version').innerHTML = chrome.app.getDetails().version

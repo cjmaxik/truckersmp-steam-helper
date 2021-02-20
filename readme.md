@@ -6,9 +6,9 @@
 Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discussions) section.
 
 ## Screenshots
-![Profile](/media/profile.png)
+![Profile](/media/profile-new.png)
 
-![Friends](/media/friends.png)
+![Friends](/media/friends-new.png)
 
 ## Features
 
@@ -20,7 +20,8 @@ Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discu
 
 ## Installation
 
-**TODO: Webstore Links**
+- Chrome (soon) - [click here](https://chrome.google.com/webstore/detail/lodcclicinbifbajhlapkolpedcjgbme/)  
+- Firefox (soon) - [click here](https://addons.mozilla.org/ru/firefox/addon/truckersmp-steam-helper/)
 
 ### License
 

@@ -23,6 +23,12 @@ Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discu
 - Chrome (soon) - [click here](https://chrome.google.com/webstore/detail/lodcclicinbifbajhlapkolpedcjgbme/)  
 - Firefox (soon) - [click here](https://addons.mozilla.org/ru/firefox/addon/truckersmp-steam-helper/)
 
+## For Delevopers
+You need to have `Node.js` and `npm` installed. Use `distribution` folder as the extracted extension path.  
+
+- `npm run watch` - for development (enabled hot-loading)  
+- `npm run build` - for the testing
+
 ### License
 
 This browser extension is released under [MIT](LICENSE.md) license.

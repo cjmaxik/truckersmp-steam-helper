@@ -2,6 +2,8 @@
 
 > Chrome / Firefox extension to provide useful information about TruckersMP player in Steam
 
+[![Release](https://github.com/cjmaxik/truckersmp-steam-helper/actions/workflows/release.yml/badge.svg)](https://github.com/cjmaxik/truckersmp-steam-helper/actions/workflows/release.yml) 
+
 ## Questions? Ideas?
 Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discussions) section.
 
@@ -19,9 +21,9 @@ Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discu
 *This extension is inspired by TruckersMP Helper and internal TruckersMP Team tools.*
 
 ## Installation
-
 - Chrome (soon) - [click here](https://chrome.google.com/webstore/detail/lodcclicinbifbajhlapkolpedcjgbme/)  
 - Firefox (soon) - [click here](https://addons.mozilla.org/ru/firefox/addon/truckersmp-steam-helper/)
+- Self-installation - [click here](https://github.com/cjmaxik/truckersmp-steam-helper/releases) 
 
 ## For Delevopers
 You need to have `Node.js` and `npm` installed. Use `distribution` folder as the extracted extension path.  

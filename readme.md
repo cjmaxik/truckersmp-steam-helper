@@ -2,6 +2,9 @@
 
 > Chrome / Firefox extension to provide useful information about TruckersMP player in Steam
 
+## Questions? Ideas?
+Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discussions) section.
+
 ## Screenshots
 ![Profile](/media/profile.png)
 

@@ -22,8 +22,7 @@ Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discu
 
 ## Installation
 - Google Chrome - [click here](https://chrome.google.com/webstore/detail/truckersmp-steam-helper/lodcclicinbifbajhlapkolpedcjgbme)  
-- Mozilla Firefox (soon) - [click here](https://addons.mozilla.org/firefox/addon/truckersmp-steam-helper/)
-- Self-installation - [click here](https://github.com/cjmaxik/truckersmp-steam-helper/releases) 
+- Mozilla Firefox - [click here](https://addons.mozilla.org/addon/truckersmp-steam-helper/)
 
 ## For Delevopers
 You need to have `Node.js` and `npm` installed. Use `distribution` folder as the extracted extension path.  

@@ -21,8 +21,8 @@ Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discu
 *This extension is inspired by TruckersMP Helper and internal TruckersMP Team tools.*
 
 ## Installation
-- Chrome (soon) - [click here](https://chrome.google.com/webstore/detail/lodcclicinbifbajhlapkolpedcjgbme/)  
-- Firefox (soon) - [click here](https://addons.mozilla.org/ru/firefox/addon/truckersmp-steam-helper/)
+- Google Chrome - [click here](https://chrome.google.com/webstore/detail/truckersmp-steam-helper/lodcclicinbifbajhlapkolpedcjgbme)  
+- Mozilla Firefox (soon) - [click here](https://addons.mozilla.org/firefox/addon/truckersmp-steam-helper/)
 - Self-installation - [click here](https://github.com/cjmaxik/truckersmp-steam-helper/releases) 
 
 ## For Delevopers

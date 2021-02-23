@@ -1,0 +1,11 @@
+<br />
+<div class="invite_block_details leftLongInviterSmallText">
+    <img src="{{ iconURL }}" width="10px">
+    <a href="https://truckersmp.com/user/{{ id }}" target="_blank" style="color: #ff1744 !important;">
+        {{ groupName }}
+    </a>
+    {{#if vtc}} | Member of <a href="https://truckersmp.com/vtc/{{ vtc.id }}" target="_blank">
+        {{ vtc.name }}
+    </a>{{/if}}
+    {{#if banned}} | <span class="tmp_banned">Banned</span>{{/if}}
+</div>

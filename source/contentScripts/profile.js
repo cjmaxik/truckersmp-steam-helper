@@ -42,17 +42,20 @@ const renderPlayerInfo = (steamId, options) => {
       steamId
     },
     (playerInfo) => {
-      if (playerInfo.data.error) {
-        return false
+      let player = null
+      if (playerInfo.data && !playerInfo.data.error) {
+        player = playerInfo.data.response
       }
 
-      return render(playerInfo.data.response, options, playerInfo.data.timeout !== 0)
+      return render(player, options, playerInfo.data.timeout !== 0)
     }
   )
 }
 
 const render = (player, options, isCached) => {
-  player = currentTier(player)
+  if (player) {
+    player = currentTier(player)
+  }
 
   let selector = 'div.profile_leftcol > :first-child'
   if (!options.showFirstInProfile) {
@@ -60,7 +63,11 @@ const render = (player, options, isCached) => {
   }
 
   selector = document.querySelector(selector)
-  selector.insertAdjacentHTML('beforeBegin', template({ ...player, ...options, isCached }))
+  selector.insertAdjacentHTML('beforeBegin', template(
+    {
+      ...player, ...options, isCached, iconURL: chrome.extension.getURL('icons/tmp.png')
+    }
+  ))
 }
 
 const currentTier = (player) => {
@@ -68,15 +75,15 @@ const currentTier = (player) => {
 
   switch (player.patreon.tierId) {
     case 3822370:
-      currentTier = 'Trucker'
+      currentTier = 'Trucker tier'
       break
 
     case 3825320:
-      currentTier = 'Fan'
+      currentTier = 'Fan tier'
       break
 
     case 3894844:
-      currentTier = 'Master Trucker'
+      currentTier = 'Master Trucker tier'
       break
 
     default:

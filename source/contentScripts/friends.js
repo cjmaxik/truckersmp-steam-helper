@@ -1,3 +1,6 @@
+const friendTemplate = require('../templates/friend.hbs')
+const inviteTemplate = require('../templates/invite.hbs')
+
 const init = () => {
   chrome.runtime.sendMessage(
     {
@@ -6,24 +9,30 @@ const init = () => {
     (options) => {
       if (options.showInFriends) {
         const friends = document.querySelectorAll('div.friend_block_v2')
-        friends.forEach(renderFriend)
+        friends.forEach((friend) => render(friend, 'div.friend_block_content', friendTemplate))
       }
 
       if (options.showInInvites) {
         const invites = document.querySelectorAll('div.invite_row')
-        invites.forEach(renderInvite)
+        invites.forEach((invite) => render(invite, 'div.invite_block_details', inviteTemplate))
+      }
+
+      if (options.friendsMaxWidth) {
+        const pageContent = document.querySelectorAll('div.pagecontent')
+        if (pageContent.length) pageContent.forEach(element => element.classList.add('max_width'))
       }
     }
   )
 }
 
-/**
- * @param {Element} friendSelector
- */
-const renderFriend = (friendSelector) => {
-  const steamId = friendSelector.getAttribute('data-steamid')
+const isSteamId = (steamId) => {
+  return (steamId && steamId.length === 17 && steamId.startsWith('765611'))
+}
 
-  if (!steamId) return
+const render = (mainSelector, targetSelector, template) => {
+  const steamId = mainSelector.getAttribute('data-steamid')
+
+  if (!isSteamId(steamId)) return
 
   chrome.runtime.sendMessage(
     {
@@ -31,41 +40,17 @@ const renderFriend = (friendSelector) => {
       steamId
     },
     (playerInfo) => {
-      let template = null
-      if (!playerInfo.data || playerInfo.data.error) {
-        template = '<br /> <span class="friend_small_text" style="color: #898989 !important;">TMP: not registered</span>'
-      } else {
-        playerInfo = playerInfo.data.response
-        template = `<br /><span class="friend_small_text" style="color: ${playerInfo.groupColor}">TMP: ${playerInfo.groupName}</span>`
+      let player = null
+      if (playerInfo.data && !playerInfo.data.error) {
+        player = playerInfo.data.response
       }
 
-      const blockContent = friendSelector.querySelector('div.friend_block_content')
-      blockContent.insertAdjacentHTML('beforeEnd', template)
-    }
-  )
-}
-
-const renderInvite = (inviteSelector) => {
-  const steamId = inviteSelector.getAttribute('data-steamid')
-
-  if (!steamId) return
-
-  chrome.runtime.sendMessage(
-    {
-      contentScriptQuery: 'queryPlayer',
-      steamId
-    },
-    (playerInfo) => {
-      let template = null
-      if (!playerInfo.data || playerInfo.data.error) {
-        template = '<span>TMP: not registered</span>'
-      } else {
-        playerInfo = playerInfo.data.response
-        template = `<span style="color: ${playerInfo.groupColor}">TMP: ${playerInfo.groupName}</span>`
-      }
-
-      const blockContent = inviteSelector.querySelector('div.invite_block_details')
-      blockContent.insertAdjacentHTML('beforeEnd', template)
+      const blockContent = mainSelector.querySelector(targetSelector)
+      blockContent.insertAdjacentHTML('beforeEnd', template(
+        {
+          ...player, iconURL: chrome.extension.getURL('icons/tmp.png')
+        }
+      ))
     }
   )
 }

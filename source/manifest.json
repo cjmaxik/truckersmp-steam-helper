@@ -12,7 +12,7 @@
     }
   },
   "icons": {
-    "256": "icon.png"
+    "256": "icons/icon.png"
   },
   "permissions": [
     "storage",
@@ -69,6 +69,9 @@
       ],
       "js": [
         "profile.js"
+      ],
+      "css": [
+        "css/profile.css"
       ]
     },
     {
@@ -87,6 +90,6 @@
     }
   ],
   "web_accessible_resources": [
-    "pageScript.js"
+    "icons/tmp.png"
   ]
 }

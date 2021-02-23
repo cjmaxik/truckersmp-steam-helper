@@ -1,18 +1,26 @@
 <div class="profile_customization">
-    <div class="profile_customization_header">
-        TruckersMP Info{{#if isCached}}<span data-tooltip-html="Cached for 10 minutes">*</span>{{/if}}
+    <div class="profile_customization_header" {{#if isCached}}data-tooltip-html="Cached for 10 minutes" {{/if}}>
+        <img src="{{ iconURL }}" width="16px">
+        {{#if id}}
+        TruckersMP Info
+        {{else}}
+        No TruckersMP account ¯\_(ツ)_/¯
+        {{/if}}
+        {{#if banned}}
+        <span class="tmp_banned">Banned</span>
+        {{/if}}
     </div>
-    <div class="profile_customization_block">
+    {{#if id}}
+    <div class="profile_customization_block {{#if banned}} tmp_banned_block {{/if}} tmp_block">
         <div class="favoritegroup_showcase">
             <div class="showcase_content_bg">
-                <div class="favoritegroup_showcase_group showcase_slot"
-                    style="height: 180px !important; padding-left: 189px !important;">
-                    <div class="favoritegroup_avatar" style="width: 180px !important; height: 180px !important;">
+                <div class="favoritegroup_showcase_group showcase_slot">
+                    <div class="favoritegroup_avatar">
                         <a href="https://truckersmp.com/user/{{ id }}" target="_blank">
-                            <img src="{{ avatar }}" style="width: 100% !important; height: auto !important;">
+                            <img src="{{ avatar }}">
                         </a>
                     </div>
-                    <div class="favoritegroup_content" style="height: 100% !important;">
+                    <div class="favoritegroup_content">
                         <div class="favoritegroup_namerow ellipsis">
                             <a class="favoritegroup_name whiteLink" href="https://truckersmp.com/user/{{ id }}"
                                 target="_blank">
@@ -22,14 +30,6 @@
                                 {{ groupName }}
                             </span>
                         </div>
-
-                        {{#if banned}}
-                        <div class="favoritegroup_description">
-                            <span style="color: red;">
-                                Banned {{#if bannedUntil}} until {{ bannedUntil }} UTC {{else}} permanently {{/if}}
-                            </span>
-                        </div>
-                        {{/if}}
 
                         {{#if vtc}}{{#if vtc.inVTC}}
                         <div class="favoritegroup_description">
@@ -43,7 +43,7 @@
                         {{#unless hidden}}{{#if active}}{{#if currentTier}}
                         <div class="favoritegroup_description">
                             <span style="color: {{ color }};">
-                                Active patron - {{ currentTier }}
+                                Active patron: {{ currentTier }}
                             </span>
                         </div>
                         {{/if}}{{/if}}{{/unless}}
@@ -63,13 +63,13 @@
 
                         <div class="favoritegroup_stats showcase_stats_row">
                             <div class="showcase_stat">
-                                <div class="label">TMP ID</div>
                                 <div class="value">{{ id }}</div>
+                                <div class="label">TMP ID</div>
                             </div>
                             {{#if bansCount}}
                             <div class="showcase_stat favoritegroup_ingame">
-                                <div class="label">Active Bans</div>
                                 <div class="value">{{bansCount}}</div>
+                                <div class="label">Active Bans</div>
                             </div>
                             {{/if}}
                             <div style="clear: left;"></div>
@@ -79,4 +79,5 @@
             </div>
         </div>
     </div>
-</div
+    {{/if}}
+</div>

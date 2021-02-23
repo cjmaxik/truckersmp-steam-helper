@@ -1,10 +1,10 @@
 .profile_friends .friend_block_v2 {
-    height: 69px !important;
+    height: 69px !important; /* nice */
 }
 
 .player_avatar img {
     width: auto !important;
-    height: 69px !important;
+    height: 69px !important;  /* nice */
 }
 
 .invite_block_details {
@@ -19,4 +19,17 @@
 .invite_block_icon .playerAvatar a img {
     width: 38px !important;
     height: 38px !important;
+}
+
+.tmp_banned {
+    float: initial !important;
+    color: #000 !important;
+    padding: 0 5px !important;
+    border-radius: 2px !important;
+    color: white !important;
+    background-color: #ca2842 !important;
+}
+
+.max_width {
+    max-width: 100% !important;
 }

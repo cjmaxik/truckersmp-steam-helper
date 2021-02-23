@@ -4,17 +4,19 @@ const inviteTemplate = require('../templates/invite.hbs')
 const init = () => {
   chrome.runtime.sendMessage(
     {
-      contentScriptQuery: 'queryOptions'
+      query: 'options'
     },
     (options) => {
+      warningMessage()
+
       if (options.showInFriends) {
         const friends = document.querySelectorAll('div.friend_block_v2')
-        friends.forEach((friend) => render(friend, 'div.friend_block_content', friendTemplate))
+        friends.forEach((friend, key) => render(friend, 'div.friend_block_content', friendTemplate, key))
       }
 
       if (options.showInInvites) {
         const invites = document.querySelectorAll('div.invite_row')
-        invites.forEach((invite) => render(invite, 'div.invite_block_details', inviteTemplate))
+        invites.forEach((invite, key) => render(invite, 'div.invite_block_details', inviteTemplate, key))
       }
 
       if (options.friendsMaxWidth) {
@@ -25,19 +27,27 @@ const init = () => {
   )
 }
 
+const warningMessage = () => {
+  const template = `<div class="search_results_none">Due to <img src="${chrome.extension.getURL('icons/tmp.png')}"> API limits, new data might load with a noticeable delay. Be patient 😉 --CJMAXiK</div>`
+  const titleBarSelector = document.querySelectorAll('div.profile_friends.title_bar')
+
+  if (titleBarSelector) titleBarSelector[0].insertAdjacentHTML('beforeBegin', template)
+}
+
 const isSteamId = (steamId) => {
   return (steamId && steamId.length === 17 && steamId.startsWith('765611'))
 }
 
-const render = (mainSelector, targetSelector, template) => {
+const render = (mainSelector, targetSelector, template, key) => {
   const steamId = mainSelector.getAttribute('data-steamid')
 
   if (!isSteamId(steamId)) return
 
   chrome.runtime.sendMessage(
     {
-      contentScriptQuery: 'queryPlayer',
-      steamId
+      query: 'player',
+      steamId,
+      key
     },
     (playerInfo) => {
       let player = null

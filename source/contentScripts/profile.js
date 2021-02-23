@@ -3,7 +3,7 @@ const template = require('../templates/profile.hbs')
 const init = () => {
   return chrome.runtime.sendMessage(
     {
-      contentScriptQuery: 'queryOptions'
+      query: 'options'
     },
     (options) => {
       let steamId = null
@@ -38,8 +38,9 @@ const getSteamId = () => {
 const renderPlayerInfo = (steamId, options) => {
   chrome.runtime.sendMessage(
     {
-      contentScriptQuery: 'queryPlayer',
-      steamId
+      query: 'player',
+      steamId,
+      key: 0
     },
     (playerInfo) => {
       let player = null

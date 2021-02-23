@@ -58,13 +58,22 @@ const render = (player, options, isCached) => {
     player = currentTier(player)
   }
 
-  let selector = 'div.profile_leftcol > :first-child'
+  const mainSelector = 'div.profile_leftcol'
+  let mainTarget = 'beforeBegin'
+  let selector = mainSelector
   if (!options.showFirstInProfile) {
-    selector = 'div.profile_leftcol > :last-child'
+    selector += ' > :last-child'
+  } else {
+    selector += ' > :first-child'
   }
 
   selector = document.querySelector(selector)
-  selector.insertAdjacentHTML('beforeBegin', template(
+  if (!selector) {
+    selector = document.querySelector(mainSelector)
+    mainTarget = 'afterBegin'
+  }
+
+  selector.insertAdjacentHTML(mainTarget, template(
     {
       ...player, ...options, isCached, iconURL: chrome.extension.getURL('icons/tmp.png')
     }

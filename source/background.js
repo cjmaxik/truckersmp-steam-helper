@@ -29,5 +29,6 @@ const queryOptions = async (request) => {
 }
 
 // Cache governor
+removeExpiredItems()
 chrome.alarms.create({ periodInMinutes: 10.0 })
 chrome.alarms.onAlarm.addListener(removeExpiredItems)

@@ -21,8 +21,9 @@ const readFromCache = async (steamId, callback) => {
 }
 
 const removeExpiredItems = () => {
-  const cacheTimeout = Date.now() + 600 * 1000
+  const currentDate = Date.now()
 
+  console.groupCollapsed('Cache cleanup: ' + new Date(currentDate).toUTCString())
   for (const key in localStorage) {
     // eslint-disable-next-line no-prototype-builtins
     if (!localStorage.hasOwnProperty(key)) {
@@ -30,13 +31,17 @@ const removeExpiredItems = () => {
     }
 
     const cachedData = JSON.parse(localStorage.getItem(key)) || null
-    if (cachedData && cachedData.timeout <= cacheTimeout && cachedData.data) {
+
+    if (cachedData && currentDate <= cachedData.timeout) {
       continue
     }
 
     localStorage.removeItem(key)
     console.log('Deleted stale key:', key)
   }
+
+  console.log('Done')
+  console.groupEnd()
 }
 
 export { readFromCache, removeExpiredItems }

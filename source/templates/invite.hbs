@@ -4,8 +4,8 @@
     <a href="https://truckersmp.com/user/{{ id }}" target="_blank" style="color: #ff1744 !important;">
         {{ groupName }}
     </a>
-    {{#if vtc}} | Member of <a href="https://truckersmp.com/vtc/{{ vtc.id }}" target="_blank">
+    {{#if vtc}}{{#if vtc.inVTC}} | Member of <a href="https://truckersmp.com/vtc/{{ vtc.id }}" target="_blank">
         {{ vtc.name }}
-    </a>{{/if}}
+    </a>{{/if}}{{/if}}
     {{#if banned}} | <span class="tmp_banned">Banned</span>{{/if}}
 </div>

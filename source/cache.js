@@ -4,7 +4,7 @@ const writeToCache = (steamId, data, timeout) => {
 
 const readFromCache = async (steamId, callback) => {
   const cachedData = JSON.parse(localStorage.getItem(steamId)) || null
-  const cacheTimeout = Date.now() + 600 * 1000
+  const cacheTimeout = Date.now() + 3600 * 1000
 
   // Return cached data
   if (cachedData && cachedData.timeout <= cacheTimeout && cachedData.data) {

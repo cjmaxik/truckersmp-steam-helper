@@ -31,6 +31,17 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           exclude: true
+          commit-template: '- {title} ← {hash}'
+          template: |
+            ### Changelog
+            
+            *To be determined*
+
+            ### Commits
+
+            {commits}
+
+            {range}
   Submit:
     needs: Version
     if: github.event_name == 'workflow_dispatch' || needs.Version.outputs.created

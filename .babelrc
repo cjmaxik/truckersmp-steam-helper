@@ -3,7 +3,7 @@
     [
       "@babel/preset-env",
       {
-        "targets": "last 2 versions, not IE 11"
+        "targets": "last 2 versions"
       }
     ]
   ],

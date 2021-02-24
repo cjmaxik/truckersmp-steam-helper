@@ -2,10 +2,8 @@
 
 > Chrome / Firefox extension to provide useful information about TruckersMP player in Steam
 
-[![Release](https://github.com/cjmaxik/truckersmp-steam-helper/actions/workflows/release.yml/badge.svg)](https://github.com/cjmaxik/truckersmp-steam-helper/actions/workflows/release.yml) 
-
-## Questions? Ideas?
-Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discussions) section.
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/cjmaxik/truckersmp-steam-helper?style=flat-square&label=Release&logo=github) ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/lodcclicinbifbajhlapkolpedcjgbme?label=Chrome&style=flat-square&logo=google-chrome) ![Mozilla Add-on](https://img.shields.io/amo/v/truckersmp-steam-helper@cjmaxik.github.com?label=Firefox&style=flat-square&logo=firefox)    
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cjmaxik/truckersmp-steam-helper/Release?label=Release%20build&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cjmaxik/truckersmp-steam-helper/CodeQL?label=CodeQL&style=flat-square)
 
 ## Screenshots
 ![Profile](/media/profile-new.png)
@@ -25,10 +23,13 @@ Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discu
 - Mozilla Firefox - [click here](https://addons.mozilla.org/addon/truckersmp-steam-helper/)
 
 ## For Delevopers
-You need to have `Node.js` and `npm` installed. Use `distribution` folder as the extracted extension path.  
+Install `Node.js`, run `npm install` in the project's root folder. Use `distribution` folder as the extracted extension path.
 
-- `npm run watch` - for development (enabled hot-loading)  
+- `npm run watch` - for development (with hot-loading)  
 - `npm run build` - for the testing
+
+## Questions? Ideas?
+Check out [Discussions](https://github.com/cjmaxik/truckersmp-steam-helper/discussions) section.
 
 ### License
 

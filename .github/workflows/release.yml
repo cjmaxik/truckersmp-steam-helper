@@ -1,32 +1,39 @@
 env:
   DIRECTORY: distribution
 
-# FILE GENERATED WITH: npx ghat fregante/ghatemplates/webext
-# SOURCE: https://github.com/fregante/ghatemplates
-# OPTIONS: {"set":["on.schedule=[{\"cron\": \"31 12 * * 6\"}]"]}
-
 name: Release
+
 on:
   workflow_dispatch: null
   schedule:
-    - cron: 31 12 * * 6
+    - cron: 0 10 * * 6
+
 jobs:
-  Version:
+  version:
+    name: Compile a new version
     outputs:
       created: ${{ steps.daily-version.outputs.created }}
       version: ${{ steps.daily-version.outputs.version }}
     runs-on: ubuntu-latest
+    
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
           fetch-depth: 20
-      - name: install
+
+      - name: CI & install dependencies
         run: npm ci || npm install
-      - run: npm test
-      - uses: fregante/daily-version-action@v1
-        name: Create tag if necessary
+
+      - name: Run tests (duh)
+        run: npm test
+
+      - name: Create tag (if necessary)
+        uses: fregante/daily-version-action@v1
         id: daily-version
-      - uses: notlmn/release-with-changelog@v3
+
+      - name: Release with changelog
+        uses: notlmn/release-with-changelog@v3
         if: steps.daily-version.outputs.created
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -42,8 +49,10 @@ jobs:
             {commits}
 
             {range}
-  Submit:
-    needs: Version
+  
+  submit:
+    name: Submit to stores
+    needs: version
     if: github.event_name == 'workflow_dispatch' || needs.Version.outputs.created
     strategy:
       fail-fast: false
@@ -52,15 +61,22 @@ jobs:
           - firefox
           - chrome
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: install
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: CI & install dependencies
         run: npm ci || npm install
-      - run: npm run build --if-present
-      - name: Update extension’s meta
+
+      - name: Build
+        run: npm run build --if-present
+
+      - name: Update extension meta
         run: >-
           npx dot-json@1 $DIRECTORY/manifest.json version ${{
-          needs.Version.outputs.version }}
+          needs.version.outputs.version }}
+
       - name: Submit
         run: |
           case ${{ matrix.command }} in

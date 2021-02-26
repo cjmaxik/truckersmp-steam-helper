@@ -1,6 +1,6 @@
 # ![icon](/source/icons/icon24.png) TruckersMP Steam Helper
 
-> Chrome / Firefox extension to provide useful information about TruckersMP player in Steam
+> Chrome / Firefox extension to provide useful information about TruckersMP players in Steam.
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cjmaxik/truckersmp-steam-helper?style=flat-square&label=Release&logo=github) ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/lodcclicinbifbajhlapkolpedcjgbme?label=Chrome&style=flat-square&logo=google-chrome) ![Mozilla Add-on](https://img.shields.io/amo/v/truckersmp-steam-helper@cjmaxik.github.com?label=Firefox&style=flat-square&logo=firefox)    
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cjmaxik/truckersmp-steam-helper/Release?label=Release%20build&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cjmaxik/truckersmp-steam-helper/CodeQL?label=CodeQL&style=flat-square)

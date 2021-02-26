@@ -1,7 +1,7 @@
 {
   "name": "TruckersMP Steam Helper",
   "version": "0.0.0",
-  "description": "__MSG_extDescription__",
+  "description": "This extension provides useful information about TruckersMP players in Steam.",
   "homepage_url": "https://github.com/cjmaxik/truckersmp-steam-helper",
   "manifest_version": 2,
   "minimum_chrome_version": "85",

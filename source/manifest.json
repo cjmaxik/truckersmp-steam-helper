@@ -1,18 +1,22 @@
 {
   "name": "TruckersMP Steam Helper",
   "version": "0.0.0",
-  "description": "This extension provides a useful information about TruckersMP player in Steam.",
+  "description": "__MSG_extDescription__",
   "homepage_url": "https://github.com/cjmaxik/truckersmp-steam-helper",
   "manifest_version": 2,
-  "minimum_chrome_version": "80",
+  "minimum_chrome_version": "85",
   "applications": {
     "gecko": {
       "id": "truckersmp-steam-helper@cjmaxik.github.com",
-      "strict_min_version": "80.0"
+      "strict_min_version": "85.0"
     }
   },
   "icons": {
-    "256": "icons/icon.png"
+    "256": "icons/icon256.png",
+    "128": "icons/icon128.png",
+    "48": "icons/icon48.png",
+    "24": "icons/icon24.png",
+    "16": "icons/icon16.png"
   },
   "permissions": [
     "storage",

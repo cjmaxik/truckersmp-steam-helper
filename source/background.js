@@ -1,15 +1,14 @@
-// eslint-disable-next-line import/no-unassigned-import
 import optionsStorage from './options-storage.js'
 import { readFromCache, removeExpiredItems } from './cache'
 
 // Listeners for a content scripts
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener((request, _sender) => {
   if (request.query === 'player') {
-    queryPlayer(request).then(sendResponse)
+    return Promise.resolve(queryPlayer(request))
   }
 
   if (request.query === 'options') {
-    queryOptions().then(sendResponse)
+    return Promise.resolve(queryOptions())
   }
 
   return true
@@ -22,7 +21,7 @@ const queryPlayer = async (request) => {
   return await readFromCache(request.steamId, async function () {
     await delay(request.key)
     const response = await fetch('https://api.truckersmp.com/v2/player/' + request.steamId + '?ref=truckersmp-steam-helper')
-    return response.json()
+    return await response.json()
   })
 }
 
@@ -33,5 +32,5 @@ const queryOptions = async (request) => {
 
 // Cache governor
 removeExpiredItems()
-chrome.alarms.create({ periodInMinutes: 10.0 })
-chrome.alarms.onAlarm.addListener(removeExpiredItems)
+browser.alarms.create({ periodInMinutes: 10.0 })
+browser.alarms.onAlarm.addListener(removeExpiredItems)

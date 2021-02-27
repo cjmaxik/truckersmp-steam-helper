@@ -1,22 +1,21 @@
 const template = require('../templates/profile.hbs')
 
 const init = () => {
-  return chrome.runtime.sendMessage(
+  browser.runtime.sendMessage(
     {
       query: 'options'
-    },
-    (options) => {
-      let steamId = null
-      steamId = getSteamId()
-
-      if (!steamId) {
-        console.log('steamId cannot be found! Aborted.')
-        return
-      }
-
-      if (options.showInProfile) renderPlayerInfo(steamId, options)
     }
-  )
+  ).then((options) => {
+    let steamId = null
+    steamId = getSteamId()
+
+    if (!steamId) {
+      console.log('steamId cannot be found! Aborted.')
+      return
+    }
+
+    if (options.showInProfile) renderPlayerInfo(steamId, options)
+  })
 }
 
 const getSteamId = () => {
@@ -36,21 +35,20 @@ const getSteamId = () => {
 }
 
 const renderPlayerInfo = (steamId, options) => {
-  chrome.runtime.sendMessage(
+  browser.runtime.sendMessage(
     {
       query: 'player',
       steamId,
       key: 0
-    },
-    (playerInfo) => {
-      let player = null
-      if (playerInfo.data && !playerInfo.data.error) {
-        player = playerInfo.data.response
-      }
-
-      return render(player, options, playerInfo.data.timeout !== 0)
     }
-  )
+  ).then((playerInfo) => {
+    let player = null
+    if (playerInfo.data && !playerInfo.data.error) {
+      player = playerInfo.data.response
+    }
+
+    return render(player, options, playerInfo.data.timeout !== 0)
+  })
 }
 
 const render = (player, options, isCached) => {
@@ -75,7 +73,9 @@ const render = (player, options, isCached) => {
 
   selector.insertAdjacentHTML(mainTarget, template(
     {
-      ...player, ...options, isCached, iconURL: chrome.extension.getURL('icons/tmp.png')
+      ...player, ...options,
+      isCached,
+      iconURL: browser.extension.getURL('icons/tmp.png')
     }
   ))
 }

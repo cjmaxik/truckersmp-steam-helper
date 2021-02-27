@@ -1,7 +1,6 @@
 import optionsStorage from './options-storage.js'
 
-if (window.matchMedia &&
-  window.matchMedia('(prefers-color-scheme: dark)').matches) {
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
   document.body.classList.add('dark')
 }
 
@@ -12,8 +11,8 @@ const links = document.getElementsByClassName('openURL')
 Array.from(links).forEach((element) => {
   element.addEventListener('click', (event) => {
     const url = event.target.getAttribute('data-href')
-    if (url) chrome.tabs.create({ url })
+    if (url) browser.tabs.create({ url })
   })
 })
 
-document.getElementById('version').innerHTML = chrome.runtime.getManifest().version
+document.getElementById('version').innerHTML = browser.runtime.getManifest().version

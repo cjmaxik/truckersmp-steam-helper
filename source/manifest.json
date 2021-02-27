@@ -23,7 +23,6 @@
     "alarms"
   ],
   "options_ui": {
-    "chrome_style": false,
     "page": "options.html"
   },
   "background": {
@@ -72,6 +71,7 @@
         "*://steamcommunity.com/profiles/*/recommended*"
       ],
       "js": [
+        "browser-polyfill.min.js",
         "profile.js"
       ],
       "css": [
@@ -86,6 +86,7 @@
         "*://steamcommunity.com/profiles/*/friends/*"
       ],
       "js": [
+        "browser-polyfill.min.js",
         "friends.js"
       ],
       "css": [

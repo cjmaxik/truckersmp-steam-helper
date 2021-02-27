@@ -1,11 +1,11 @@
 import optionsStorage from './options-storage.js'
 
 if (window.matchMedia &&
-    window.matchMedia('(prefers-color-scheme: dark)').matches) {
+  window.matchMedia('(prefers-color-scheme: dark)').matches) {
   document.body.classList.add('dark')
 }
 
-optionsStorage.syncForm('#options-form')
+optionsStorage.syncForm('#options-form').catch(e => console.error(e))
 
 // Links
 const links = document.getElementsByClassName('openURL')
@@ -16,4 +16,4 @@ Array.from(links).forEach((element) => {
   })
 })
 
-document.getElementById('version').innerHTML = chrome.app.getDetails().version
+document.getElementById('version').innerHTML = chrome.runtime.getManifest().version

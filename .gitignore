@@ -1,2 +1,5 @@
 node_modules
 distribution
+
+# Idea files
+/.idea/

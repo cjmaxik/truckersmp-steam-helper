@@ -59,7 +59,7 @@ const render = (player, options, isCached) => {
   }
 
   const mainSelector = 'div.profile_leftcol'
-  let mainTarget = 'beforeBegin'
+  let mainTarget = 'beforebegin'
   let selector = mainSelector
   if (!options.showFirstInProfile) {
     selector += ' > :last-child'
@@ -70,7 +70,7 @@ const render = (player, options, isCached) => {
   selector = document.querySelector(selector)
   if (!selector) {
     selector = document.querySelector(mainSelector)
-    mainTarget = 'afterBegin'
+    mainTarget = 'afterbegin'
   }
 
   selector.insertAdjacentHTML(mainTarget, template(
@@ -80,6 +80,14 @@ const render = (player, options, isCached) => {
   ))
 }
 
+/**
+ * Describe Patreon tier for the player
+ * @param {Object} player
+ * @param {Object} player.patreon
+ * @param {Number} player.patreon.tierId
+ * @param {Number} player.patreon.currentPledge
+ * @return {*}
+ */
 const currentTier = (player) => {
   let currentTier = null
 

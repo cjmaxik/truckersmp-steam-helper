@@ -1,5 +1,8 @@
 const writeToCache = (steamId, data, timeout) => {
-  localStorage.setItem(steamId, JSON.stringify({ data, timeout }))
+  localStorage.setItem(steamId, JSON.stringify({
+    data,
+    timeout
+  }))
 }
 
 const readFromCache = async (steamId, callback) => {
@@ -17,7 +20,10 @@ const readFromCache = async (steamId, callback) => {
   writeToCache(steamId, data, cacheTimeout)
 
   // Return with timeout 0 to indicate an updated value
-  return { data, timeout: 0 }
+  return {
+    data,
+    timeout: 0
+  }
 }
 
 const removeExpiredItems = () => {

@@ -1,83 +1,78 @@
 <div class="profile_customization">
-    <div class="profile_customization_header" {{#if isCached}}data-tooltip-html="Cached for 1 hour" {{/if}}>
-        <img src="{{ iconURL }}" width="16px">
-        {{#if id}}
-        TruckersMP Info
-        {{else}}
-        No TruckersMP account ¯\_(ツ)_/¯
-        {{/if}}
-        {{#if banned}}
-        <span class="tmp_banned">Banned</span>
-        {{/if}}
-    </div>
+  <div class="profile_customization_header" {{#if isCached}}data-tooltip-html="Cached for 1 hour" {{/if}}>
+    <img src="{{ iconURL }}" width="16px" alt="Logo">
     {{#if id}}
-    <div class="profile_customization_block {{#if banned}} tmp_banned_block {{/if}} tmp_block">
-        <div class="favoritegroup_showcase">
-            <div class="showcase_content_bg">
-                <div class="favoritegroup_showcase_group showcase_slot">
-                    <div class="favoritegroup_avatar">
-                        <a href="https://truckersmp.com/user/{{ id }}" target="_blank">
-                            <img src="{{ avatar }}">
-                        </a>
-                    </div>
-                    <div class="favoritegroup_content">
-                        <div class="favoritegroup_namerow ellipsis">
-                            <a class="favoritegroup_name whiteLink" href="https://truckersmp.com/user/{{ id }}"
-                                target="_blank">
-                                {{ name }}
-                            </a>
-                            - <span style="color: {{ groupColor }};" data-tooltip-html="{{ groupName }}">
-                                {{ groupName }}
-                            </span>
-                        </div>
-
-                        {{#if vtc}}{{#if vtc.inVTC}}
-                        <div class="favoritegroup_description">
-                            Member of <a href="https://truckersmp.com/vtc/{{ vtc.id }}" target="_blank">
-                                {{ vtc.name }}
-                            </a>
-                        </div>
-                        {{/if}}{{/if}}
-
-                        {{#if showPatreon}}{{#if patreon}}{{#with patreon}}
-                        {{#unless hidden}}{{#if active}}{{#if currentTier}}
-                        <div class="favoritegroup_description">
-                            <span style="color: {{ color }};">
-                                Active patron: {{ currentTier }}
-                            </span>
-                        </div>
-                        {{/if}}{{/if}}{{/unless}}
-                        {{/with}}{{/if}}{{/if}}
-
-                        {{#if showDiscord}}{{#if discordSnowflake}}
-                        <div class="favoritegroup_description">
-                            Discord Snowflake: {{ discordSnowflake }}
-                        </div>
-                        {{/if}}{{/if}}
-
-                        {{#if steamID}}
-                        <div class="favoritegroup_description">
-                            Steam ID: {{ steamID }}
-                        </div>
-                        {{/if}}
-
-                        <div class="favoritegroup_stats showcase_stats_row">
-                            <div class="showcase_stat">
-                                <div class="value">{{ id }}</div>
-                                <div class="label">TMP ID</div>
-                            </div>
-                            {{#if bansCount}}
-                            <div class="showcase_stat favoritegroup_ingame">
-                                <div class="value">{{bansCount}}</div>
-                                <div class="label">Active Bans</div>
-                            </div>
-                            {{/if}}
-                            <div style="clear: left;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+      TruckersMP Info
+    {{else}}
+      No TruckersMP account ¯\_(ツ)_/¯
     {{/if}}
+    {{#if banned}}
+      <span class="tmp_banned">Banned</span>
+    {{/if}}
+  </div>
+  {{#if id}}
+    <div class="profile_customization_block {{#if banned}} tmp_banned_block {{/if}} tmp_block">
+      <div class="favoritegroup_showcase">
+        <div class="showcase_content_bg">
+          <div class="favoritegroup_showcase_group showcase_slot">
+            <div class="favoritegroup_avatar">
+              <a href="https://truckersmp.com/user/{{ id }}" target="_blank">
+                <img src="{{ avatar }}" alt="{{ nickname }}'s avatar">
+              </a>
+            </div>
+            <div class="favoritegroup_content">
+              <div class="favoritegroup_namerow ellipsis">
+                <a class="favoritegroup_name whiteLink" href="https://truckersmp.com/user/{{ id }}"
+                   target="_blank">
+                  {{ name }}
+                </a> - <span style="color: {{ groupColor }};" data-tooltip-html="{{ groupName }}">{{ groupName }}</span>
+              </div>
+
+              {{#if vtc}}{{#if vtc.inVTC}}
+                <div class="favoritegroup_description">
+                  Member of <a href="https://truckersmp.com/vtc/{{ vtc.id }}" target="_blank">{{ vtc.name }}</a>
+                </div>
+              {{/if}}{{/if}}
+
+              {{#if showPatreon}}{{#if patreon}}{{#with patreon}}
+                {{#unless hidden}}{{#if active}}{{#if currentTier}}
+                  <div class="favoritegroup_description">
+                    <span style="color: {{ color }};">
+                        Active patron: {{ currentTier }}
+                    </span>
+                  </div>
+                {{/if}}{{/if}}{{/unless}}
+              {{/with}}{{/if}}{{/if}}
+
+              {{#if showDiscord}}{{#if discordSnowflake}}
+                <div class="favoritegroup_description">
+                  Discord Snowflake: {{ discordSnowflake }}
+                </div>
+              {{/if}}{{/if}}
+
+              {{#if steamID}}
+                <div class="favoritegroup_description">
+                  Steam ID: {{ steamID }}
+                </div>
+              {{/if}}
+
+              <div class="favoritegroup_stats showcase_stats_row">
+                <div class="showcase_stat">
+                  <div class="value">{{ id }}</div>
+                  <div class="label">TMP ID</div>
+                </div>
+                {{#if bansCount}}
+                  <div class="showcase_stat favoritegroup_ingame">
+                    <div class="value">{{bansCount}}</div>
+                    <div class="label">Active Bans</div>
+                  </div>
+                {{/if}}
+                <div style="clear: left;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>

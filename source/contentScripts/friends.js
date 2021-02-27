@@ -28,10 +28,10 @@ const init = () => {
 }
 
 const warningMessage = () => {
-  const template = `<div class="search_results_none">Due to <img src="${chrome.extension.getURL('icons/tmp.png')}"> API limits, new data might load with a noticeable delay. Be patient 😉 --CJMAXiK</div>`
+  const template = `<div class="search_results_none">Due to <img src="${chrome.extension.getURL('icons/tmp.png')}" alt="Icon"> API limits, new data might load with a noticeable delay. Be patient 😉 --CJMAXiK</div>`
   const titleBarSelector = document.querySelectorAll('div.profile_friends.title_bar')
 
-  if (titleBarSelector) titleBarSelector[0].insertAdjacentHTML('beforeBegin', template)
+  if (titleBarSelector) titleBarSelector[0].insertAdjacentHTML('beforebegin', template)
 }
 
 const isSteamId = (steamId) => {
@@ -56,9 +56,10 @@ const render = (mainSelector, targetSelector, template, key) => {
       }
 
       const blockContent = mainSelector.querySelector(targetSelector)
-      blockContent.insertAdjacentHTML('beforeEnd', template(
+      blockContent.insertAdjacentHTML('beforeend', template(
         {
-          ...player, iconURL: chrome.extension.getURL('icons/tmp.png')
+          ...player,
+          iconURL: chrome.extension.getURL('icons/tmp.png')
         }
       ))
     }
@@ -72,7 +73,10 @@ new MutationObserver(() => {
     lastUrl = location.href
     onUrlChange()
   }
-}).observe(document, { subtree: true, childList: true })
+}).observe(document, {
+  subtree: true,
+  childList: true
+})
 
 function onUrlChange () {
   init()

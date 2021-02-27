@@ -1,4 +1,4 @@
-<!doctype html>
+<html lang="en">
 
 <head>
   <meta charset="utf-8">
@@ -10,51 +10,57 @@
 </head>
 
 <body>
-  <form id="options-form">
-    <div class="content hr">
-      <h4>Visibility in Steam</h4>
-      <div>
-        <input type="checkbox" name="showInProfile"> Profile
-      </div>
-      <div>
-        <input type="checkbox" name="showInFriends"> Friends <small>(including Blocked, Recently Played With)</small>
-      </div>
-      <div>
-        <input type="checkbox" name="showInInvites"> Pending Invites
-      </div>
+<form id="options-form">
+  <div class="content hr">
+    <h4>Visibility in Steam</h4>
+    <div>
+      <input type="checkbox" name="showInProfile"> Profile
     </div>
-
-    <div class="content hr">
-      <h4>Profile</h4>
-      <div>
-        <input type="checkbox" name="showDiscord"> Show Discord Snowflake
-      </div>
-      <div>
-        <input type="checkbox" name="showPatreon"> Show Patreon info
-      </div>
-      <div>
-        <input type="checkbox" name="showFirstInProfile"> Show as a first block in the profile
-      </div>
+    <div>
+      <input type="checkbox" name="showInFriends"> Friends <small>(including Blocked, Recently Played With)</small>
     </div>
-
-    <div class="content hr">
-      <h4>Friends</h4>
-      <div>
-        <input type="checkbox" name="friendsMaxWidth"> Full-width page
-      </div>
+    <div>
+      <input type="checkbox" name="showInInvites"> Pending Invites
     </div>
-  </form>
-
-  <div class="text-center">
-    <h5>Settings will be saved immediately</h5>
-    <p>
-      Version <span id="version"></span><br />
-      <a href="#" class="openURL" data-href="https://github.com/cjmaxik/truckersmp-steam-helper">Source code, issues,
-        discussions</a> | <a href="#" class="openURL"
-        data-href="https://forum.truckersmp.com/index.php?/topic/102560-truckersmp-steam-helper/">TruckersMP Forum
-        post</a>
-    </p>
   </div>
+
+  <div class="content hr">
+    <h4>Profile</h4>
+    <div>
+      <input type="checkbox" name="showDiscord"> Show Discord Snowflake
+    </div>
+    <div>
+      <input type="checkbox" name="showPatreon"> Show Patreon info
+    </div>
+    <div>
+      <input type="checkbox" name="showFirstInProfile"> Show as a first block in the profile
+    </div>
+  </div>
+
+  <div class="content hr">
+    <h4>Friends</h4>
+    <div>
+      <input type="checkbox" name="friendsMaxWidth"> Full-width page
+    </div>
+  </div>
+</form>
+
+<div class="text-center">
+  <h5>Settings will be saved immediately</h5>
+  <p>
+    Version <span id="version"></span><br/>
+    <a
+      href="#"
+      class="openURL"
+      data-href="https://github.com/cjmaxik/truckersmp-steam-helper"
+    >
+      Source code, issues, discussions
+    </a> | <a href="#" class="openURL"
+              data-href="https://forum.truckersmp.com/index.php?/topic/102560-truckersmp-steam-helper/">
+    TruckersMP Forum post
+  </a>
+  </p>
+</div>
 
 </body>
 <script src="browser-polyfill.min.js"></script>

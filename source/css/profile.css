@@ -1,36 +1,36 @@
 .tmp_banned_block {
-    background-color: #FF000020 !important;
+  background-color: #FF000020 !important;
 }
 
 div.tmp_block div.showcase_slot {
-    height: 180px !important; 
-    padding-left: 189px !important; 
-    margin-bottom: 0 !important;
+  height: 180px !important;
+  padding-left: 189px !important;
+  margin-bottom: 0 !important;
 }
 
 div.tmp_block div.favoritegroup_avatar {
-    width: 180px !important; 
-    height: 180px !important;
+  width: 180px !important;
+  height: 180px !important;
 }
 
 div.tmp_block div.favoritegroup_avatar > a > img {
-    width: 100% !important; 
-    height: auto !important;
+  width: 100% !important;
+  height: auto !important;
 }
 
 div.tmp_block div.favoritegroup_content {
-    height: 100% !important;
+  height: 100% !important;
 }
 
 div.tmp_block div.showcase_stat {
-    padding-bottom: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 .tmp_banned {
-    float: right;
-    color: #000;
-    padding: 0 5px;
-    border-radius: 2px;
-    color: white !important;
-    background-color: #ca2842 !important;
+  float: right;
+  color: #000;
+  padding: 0 5px;
+  border-radius: 2px;
+  color: white !important;
+  background-color: #ca2842 !important;
 }

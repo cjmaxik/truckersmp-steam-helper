@@ -1,35 +1,34 @@
 .profile_friends .friend_block_v2 {
-    height: 69px !important; /* nice */
+  height: 69px !important; /* nice */
 }
 
 .player_avatar img {
-    width: auto !important;
-    height: 69px !important;  /* nice */
+  width: auto !important;
+  height: 69px !important; /* nice */
 }
 
 .invite_block_details {
-    margin-top: 0 !important;
+  margin-top: 0 !important;
 }
 
 .invite_block_icon .playerAvatar {
-    width: 40px !important;
-    height: 40px !important;
+  width: 40px !important;
+  height: 40px !important;
 }
 
 .invite_block_icon .playerAvatar a img {
-    width: 38px !important;
-    height: 38px !important;
+  width: 38px !important;
+  height: 38px !important;
 }
 
 .tmp_banned {
-    float: initial !important;
-    color: #000 !important;
-    padding: 0 5px !important;
-    border-radius: 2px !important;
-    color: white !important;
-    background-color: #ca2842 !important;
+  float: initial !important;
+  padding: 0 5px !important;
+  border-radius: 2px !important;
+  color: white !important;
+  background-color: #ca2842 !important;
 }
 
 .max_width {
-    max-width: 100% !important;
+  max-width: 100% !important;
 }

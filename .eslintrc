@@ -1,16 +1,17 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
-    },
-    "extends": [
-        "standard"
-    ],
-    "parserOptions": {
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "globals": {
-        "chrome"
-    }
+  "env": {
+    "browser": true,
+    "es6": true,
+    "webextensions": true
+  },
+  "extends": [
+    "standard"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "globals": {
+    "chrome": true
+  }
 }

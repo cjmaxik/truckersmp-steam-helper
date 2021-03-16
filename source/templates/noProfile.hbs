@@ -1,0 +1,62 @@
+<div class="profile_customization">
+  <div class="profile_customization_header" {{#if isCached}}data-tooltip-html="Cached for 1 hour" {{/if}}>
+    <img src="{{ iconURL }}" width="16px" alt="Logo"> No TruckersMP account ¯\_(ツ)_/¯
+  </div>
+  <div class="profile_customization_block tmp_block">
+    <div class="customtext_showcase">
+      <div class="showcase_content_bg showcase_stats_row">
+        {{#if count}}
+          <div class="showcase_stat">
+            <div class="label">ETS2</div>
+            <div class="value">
+              {{#ifEquals ets2 -1}}
+                Not found
+              {{else}}
+                {{ ets2 }} h
+              {{/ifEquals}}
+            </div>
+          </div>
+        {{/if}}
+
+        {{#if count}}
+          <div class="showcase_stat">
+            <div class="label">ATS</div>
+            <div class="value">
+              {{#ifEquals ats -1}}
+                Not found
+              {{else}}
+                {{ ats }} h
+              {{/ifEquals}}
+            </div>
+          </div>
+        {{/if}}
+
+        {{#if count}}
+        {{else}}
+          <div class="showcase_stat">
+            <div class="label">Game Details</div>
+            <div class="value">
+              Private
+            </div>
+          </div>
+        {{/if}}
+
+        <div class="showcase_stat">
+          <div class="label">Playtime</div>
+          <div class="value">
+            {{#if count}}
+              {{#if all}}
+                Public
+              {{else}}
+                Private?
+              {{/if}}
+            {{else}}
+              Private
+            {{/if}}
+          </div>
+        </div>
+        <div style="clear: left;"></div>
+      </div>
+    </div>
+  </div>
+</div>

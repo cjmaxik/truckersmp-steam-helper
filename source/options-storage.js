@@ -7,7 +7,6 @@ export default new OptionsSync({
     showInInvites: true,
     showDiscord: true,
     showPatreon: true,
-    showFirstInProfile: true,
     friendsMaxWidth: false
   },
   migrations: [

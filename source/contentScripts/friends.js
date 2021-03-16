@@ -26,6 +26,9 @@ const init = () => {
   })
 }
 
+/**
+ * Insert a warning message
+ */
 const warningMessage = () => {
   const template = `<div class="search_results_none">Due to <img src="${browser.extension.getURL('icons/tmp.png')}" alt="Icon"> API limits, new data might load with a noticeable delay. Be patient 😉 --CJMAXiK</div>`
   const titleBarSelector = document.querySelectorAll('div.profile_friends.title_bar')
@@ -33,10 +36,22 @@ const warningMessage = () => {
   if (titleBarSelector) titleBarSelector[0].insertAdjacentHTML('beforebegin', template)
 }
 
+/**
+ * Check Steam ID correctness
+ * @param {String} steamId
+ * @return {Boolean}
+ */
 const isSteamId = (steamId) => {
   return (steamId && steamId.length === 17 && steamId.startsWith('765611'))
 }
 
+/**
+ * Render the template
+ * @param {Element} mainSelector
+ * @param {String} targetSelector
+ * @param {Function} template
+ * @param {Number} key
+ */
 const render = (mainSelector, targetSelector, template, key) => {
   const steamId = mainSelector.getAttribute('data-steamid')
 
@@ -46,7 +61,8 @@ const render = (mainSelector, targetSelector, template, key) => {
     {
       query: 'player',
       steamId,
-      key
+      key,
+      withGames: false
     }
   ).then((playerInfo) => {
     let player = null
@@ -69,15 +85,11 @@ let lastUrl = location.href
 new MutationObserver(() => {
   if (location.href !== lastUrl) {
     lastUrl = location.href
-    onUrlChange()
+    init()
   }
 }).observe(document, {
   subtree: true,
   childList: true
 })
-
-function onUrlChange () {
-  init()
-}
 
 init()

@@ -1,13 +1,26 @@
-const writeToCache = (steamId, data, timeout) => {
-  localStorage.setItem(steamId, JSON.stringify({
+/**
+ * Write to cache
+ * @param {String} key Cache key
+ * @param {Object} data Data to write
+ * @param {Number} timeout Cache timeout (in ms)
+ */
+const writeToCache = (key, data, timeout) => {
+  localStorage.setItem(key, JSON.stringify({
     data,
     timeout
   }))
 }
 
-const readFromCache = async (steamId, callback) => {
-  const cachedData = JSON.parse(localStorage.getItem(steamId)) || null
-  const cacheTimeout = Date.now() + 3600 * 1000
+/**
+ * Read from cache
+ * @param {String} key Cache key (Steam ID by default)
+ * @param {Function} callback Callback function (if data is not cached)
+ * @param {?Number} timeout Cache timeout (in minutes)
+ * @returns {Object}
+ */
+const readFromCache = async (key, callback, timeout = 60) => {
+  const cachedData = JSON.parse(localStorage.getItem(key)) || null
+  const cacheTimeout = Date.now() + timeout * 60 * 1000
 
   // Return cached data
   if (cachedData && cachedData.timeout <= cacheTimeout && cachedData.data) {
@@ -15,9 +28,9 @@ const readFromCache = async (steamId, callback) => {
   }
 
   // Execute a callback, put response in a new cache entry
-  localStorage.removeItem(steamId)
-  const data = await callback(steamId)
-  writeToCache(steamId, data, cacheTimeout)
+  localStorage.removeItem(key)
+  const data = await callback(key)
+  writeToCache(key, data, cacheTimeout)
 
   // Return with timeout 0 to indicate an updated value
   return {
@@ -26,6 +39,10 @@ const readFromCache = async (steamId, callback) => {
   }
 }
 
+/**
+ * Remove expired items
+ * Scheduled job
+ */
 const removeExpiredItems = () => {
   const currentDate = Date.now()
 

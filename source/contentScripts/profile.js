@@ -1,4 +1,10 @@
-const template = require('../templates/profile.hbs')
+const Handlebars = require('handlebars/runtime')
+Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
+  return (arg1 === arg2) ? options.fn(this) : options.inverse(this)
+})
+
+const profileTemplate = require('../templates/profile.hbs')
+const noProfileTemplate = require('../templates/noProfile.hbs')
 
 const init = () => {
   browser.runtime.sendMessage(
@@ -14,10 +20,14 @@ const init = () => {
       return
     }
 
-    if (options.showInProfile) renderPlayerInfo(steamId, options)
+    if (options.showInProfile) queryPlayer(steamId, options)
   })
 }
 
+/**
+ * Find and return Steam ID
+ * @return {String|null} SteamID
+ */
 const getSteamId = () => {
   if (document.querySelector('#reportAbuseModal')) {
     return document.querySelector('input[name=abuseID]').value
@@ -34,50 +44,84 @@ const getSteamId = () => {
   return null
 }
 
-const renderPlayerInfo = (steamId, options) => {
+/**
+ * Query player from TruckersMP API
+ * @param {String} steamId
+ * @param {Object} options
+ */
+const queryPlayer = (steamId, options) => {
   browser.runtime.sendMessage(
     {
       query: 'player',
-      steamId,
-      key: 0
+      steamId: steamId,
+      key: 0,
+      withGames: true
     }
   ).then((playerInfo) => {
-    let player = null
     if (playerInfo.data && !playerInfo.data.error) {
-      player = playerInfo.data.response
+      return renderProfile(playerInfo.data.response, options, playerInfo.data.timeout !== 0)
     }
+    console.warn('Something wrong with TruckersMP data! Looking for the games on Steam profile...', playerInfo)
 
-    return render(player, options, playerInfo.data.timeout !== 0)
+    if (playerInfo.games) {
+      return renderNoProfile(playerInfo.games, options)
+    }
+    console.error('Something wrong with the Steam profile! Aborted.')
   })
 }
 
-const render = (player, options, isCached) => {
+/**
+ * Render block for not registered user
+ * @param {Object} games
+ * @param {Object} options
+ */
+const renderNoProfile = (games, options) => {
+  const template = noProfileTemplate({
+    ...games,
+    ...options,
+    iconURL: browser.extension.getURL('icons/tmp.png')
+  })
+
+  insertTemplate(template)
+}
+
+/**
+ * Render profile with TruckersMP data
+ * @param {Object} player
+ * @param {Object} options
+ * @param {Boolean} isCached
+ */
+const renderProfile = (player, options, isCached) => {
   if (player) {
     player = currentTier(player)
   }
 
-  const mainSelector = 'div.profile_leftcol'
-  let mainTarget = 'beforebegin'
-  let selector = mainSelector
-  if (!options.showFirstInProfile) {
-    selector += ' > :last-child'
-  } else {
-    selector += ' > :first-child'
-  }
+  const template = profileTemplate({
+    ...player,
+    ...options,
+    isCached,
+    iconURL: browser.extension.getURL('icons/tmp.png')
+  })
 
-  selector = document.querySelector(selector)
+  insertTemplate(template)
+}
+
+/**
+ * Insert template
+ * @param {String} template
+ */
+const insertTemplate = (template) => {
+  const fallbackSelector = 'div.profile_leftcol'
+  const mainSelector = fallbackSelector + ' > :first-child'
+  let mainTarget = 'beforebegin'
+
+  let selector = document.querySelector(mainSelector)
   if (!selector) {
-    selector = document.querySelector(mainSelector)
+    selector = document.querySelector(fallbackSelector)
     mainTarget = 'afterbegin'
   }
 
-  selector.insertAdjacentHTML(mainTarget, template(
-    {
-      ...player, ...options,
-      isCached,
-      iconURL: browser.extension.getURL('icons/tmp.png')
-    }
-  ))
+  selector.insertAdjacentHTML(mainTarget, template)
 }
 
 /**

@@ -69,7 +69,7 @@ const queryGames = async (request) => {
 
   const gamesData = xmlDoc.getElementsByTagName('game')
 
-  let games = {
+  const games = {
     ets2: -1,
     ats: -1,
     all: -1,
@@ -109,10 +109,9 @@ const queryGames = async (request) => {
 
           case '270880':
             games.ats = gameTime
-            return
         }
       } else {
-        games['all'] += gameTime
+        games.all += gameTime
       }
     }
   })

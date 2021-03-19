@@ -20,7 +20,8 @@
   },
   "permissions": [
     "storage",
-    "alarms"
+    "alarms",
+    "*://steamcommunity.com/*"
   ],
   "options_ui": {
     "page": "options.html"

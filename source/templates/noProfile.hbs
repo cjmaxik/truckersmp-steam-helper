@@ -45,13 +45,13 @@
           <div class="label">Playtime</div>
           <div class="value">
             {{#if count}}
-              {{#if all}}
-                Public
+              {{#ifEquals all -1}}
+                Private
               {{else}}
-                Private?
-              {{/if}}
+                Public
+              {{/ifEquals}}
             {{else}}
-              Private
+              Private?
             {{/if}}
           </div>
         </div>

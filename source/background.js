@@ -36,7 +36,7 @@ const delay = (key) => new Promise(resolve => setTimeout(resolve, key * 150 + Ma
 const queryPlayer = async (request) => {
   const playerInfo = await readFromCache(request.steamId, async function () {
     await delay(request.key)
-    const response = await fetch(`https://api.truckersmp.com/v2/player/${request.steamId}?ref=truckersmp-steam-helper`)
+    const response = await fetch(`https://api.truckersmp.com/v2/player/${request.steamId}?ref=truckersmp-steam-helper&v=${cacheBusting()}`)
     return await response.json()
   })
 
@@ -55,13 +55,17 @@ const queryOptions = async () => {
   return await optionsStorage.getAll()
 }
 
+const cacheBusting = () => {
+  return Math.floor(Math.random() * 69420)
+}
+
 /**
  * Check user games
  * @param {Object} request Data object
  * @param {String} request.steamId Steam ID
  */
 const queryGames = async (request) => {
-  const response = await fetch(`https://steamcommunity.com/profiles/${request.steamId}/games/?xml=1`)
+  const response = await fetch(`https://steamcommunity.com/profiles/${request.steamId}/games/?xml=1&v=${cacheBusting()}`)
   const data = await response.text()
 
   const parser = new DOMParser()
@@ -93,7 +97,7 @@ const queryGames = async (request) => {
 
       case '270880':
         games.ats = 0
-        return
+        break
     }
 
     // Check the game time

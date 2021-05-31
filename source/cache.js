@@ -16,7 +16,7 @@ const writeToCache = (key, data, timeout) => {
  * @param {String} key Cache key (Steam ID by default)
  * @param {Function} callback Callback function (if data is not cached)
  * @param {?Number} timeout Cache timeout (in minutes)
- * @returns {Object}
+ * @returns {Object<Object, String>}
  */
 const readFromCache = async (key, callback, timeout = 60) => {
   const cachedData = JSON.parse(localStorage.getItem(key)) || null
@@ -28,15 +28,23 @@ const readFromCache = async (key, callback, timeout = 60) => {
   }
 
   // Execute a callback, put response in a new cache entry
-  localStorage.removeItem(key)
+  removeFromCache(key)
   const data = await callback(key)
   writeToCache(key, data, cacheTimeout)
 
   // Return with timeout 0 to indicate an updated value
   return {
     data,
-    timeout: 0
+    timeout: cacheTimeout
   }
+}
+
+/**
+ * Remove from cache
+ * @param key
+ */
+const removeFromCache = (key) => {
+  localStorage.removeItem(key);
 }
 
 /**
@@ -59,7 +67,7 @@ const removeExpiredItems = () => {
       continue
     }
 
-    localStorage.removeItem(key)
+    removeFromCache(key)
     console.log('Deleted stale key:', key)
   }
 
@@ -67,4 +75,4 @@ const removeExpiredItems = () => {
   console.groupEnd()
 }
 
-export { readFromCache, removeExpiredItems }
+export { readFromCache, removeFromCache, removeExpiredItems }

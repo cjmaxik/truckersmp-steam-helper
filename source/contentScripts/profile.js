@@ -12,8 +12,7 @@ const init = () => {
       query: 'options'
     }
   ).then((options) => {
-    let steamId = null
-    steamId = getSteamId()
+    const steamId = getSteamId()
 
     if (!steamId) {
       console.log('steamId cannot be found! Aborted.')
@@ -55,11 +54,12 @@ const queryPlayer = (steamId, options) => {
       query: 'player',
       steamId: steamId,
       key: 0,
-      withGames: true
+      withGames: true,
+      withMap: true
     }
   ).then((playerInfo) => {
     if (playerInfo.data && !playerInfo.data.error) {
-      return renderProfile(playerInfo.data.response, options, playerInfo.data.timeout !== 0)
+      return renderProfile(playerInfo.data.response, playerInfo.online, options, playerInfo.timeout)
     }
     console.warn('Something wrong with TruckersMP data! Looking for the games on Steam profile...', playerInfo)
 
@@ -88,18 +88,22 @@ const renderNoProfile = (games, options) => {
 /**
  * Render profile with TruckersMP data
  * @param {Object} player
+ * @param {Boolean} online
  * @param {Object} options
- * @param {Boolean} isCached
+ * @param {string} timeout
  */
-const renderProfile = (player, options, isCached) => {
+const renderProfile = (player, online, options, timeout) => {
   if (player) {
     player = currentTier(player)
   }
 
+  timeout = new Date(timeout).toLocaleString()
+
   const template = profileTemplate({
     ...player,
+    online,
     ...options,
-    isCached,
+    timeout,
     iconURL: browser.extension.getURL('icons/tmp.png')
   })
 
@@ -133,7 +137,7 @@ const insertTemplate = (template) => {
  * @return {*}
  */
 const currentTier = (player) => {
-  let currentTier = null
+  let currentTier
 
   switch (player.patreon.tierId) {
     case 3822370:

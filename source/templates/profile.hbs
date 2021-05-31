@@ -1,10 +1,11 @@
 <div class="profile_customization">
-  <div class="profile_customization_header" {{#if isCached}}data-tooltip-html="Cached for 1 hour" {{/if}}>
-    <img src="{{ iconURL }}" width="16px" alt="Logo"> TruckersMP Info
+  <div class="profile_customization_header">
+    <span {{#if timeout}}data-tooltip-html="Cached until {{ timeout }}"{{/if}}><img src="{{ iconURL }}" width="16px" alt="Logo"> TruckersMP Info</span>
     {{#if banned}}
-      <span class="tmp_banned">Banned</span>
+      <span class="tmp_banned" {{#if bannedUntil}}data-tooltip-html="Until {{ bannedUntil }}"{{/if}}>Banned{{#unless bannedUntil}} permanently!{{/unless}}</span>
     {{/if}}
   </div>
+
   <div class="profile_customization_block {{#if banned}} tmp_banned_block {{/if}} tmp_block">
     <div class="favoritegroup_showcase">
       <div class="showcase_content_bg">
@@ -14,6 +15,7 @@
               <img src="{{ avatar }}" alt="{{ nickname }}'s avatar">
             </a>
           </div>
+
           <div class="favoritegroup_content">
             <div class="favoritegroup_namerow ellipsis">
               <a class="favoritegroup_name whiteLink" href="https://truckersmp.com/user/{{ id }}" target="_blank"
@@ -32,9 +34,9 @@
             {{#if showPatreon}}{{#if patreon}}{{#with patreon}}
               {{#unless hidden}}{{#if active}}{{#if currentTier}}
                 <div class="favoritegroup_description">
-              <span style="color: {{ color }};">
-                Active patron: {{ currentTier }}
-              </span>
+                  <span style="color: {{ color }};">
+                    Active patron: {{ currentTier }}
+                  </span>
                 </div>
               {{/if}}{{/if}}{{/unless}}
             {{/with}}{{/if}}{{/if}}
@@ -56,12 +58,32 @@
                 <div class="value">{{ id }}</div>
                 <div class="label">TMP ID</div>
               </div>
+
               {{#if bansCount}}
-                <div class="showcase_stat favoritegroup_ingame">
-                  <div class="value">{{bansCount}}</div>
+                <div class="showcase_stat favoritegroup_online">
+                  <div class="value">{{ bansCount }}</div>
                   <div class="label">Active Bans</div>
                 </div>
               {{/if}}
+
+              {{#unless banned}}
+                {{#if online}}
+                  <div class="showcase_stat favoritegroup_ingame">
+                    <div class="value">
+                      <a href="https://map.truckersmp.com/follow/{{ id }}?ref=truckersmp-steam-helper" target="_blank" data-tooltip-html="Click to follow on the map">Online</a>
+                    </div>
+                    <div class="label">TMP Status</div>
+                  </div>
+                {{/if}}
+
+                {{#unless online}}
+                  <div class="showcase_stat favoritegroup_offline">
+                    <div class="value">Offline</div>
+                    <div class="label">TMP Status</div>
+                  </div>
+                {{/unless}}
+              {{/unless}}
+
               <div style="clear: left;"></div>
             </div>
           </div>

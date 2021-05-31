@@ -3,5 +3,5 @@
     <img src="{{ iconURL }}" width="10px" alt="Icon"> {{#if id}}{{groupName}}{{else}}¯\_(ツ)_/¯{{/if}}
 </span>
 {{#if banned}}
-  <span class="em_count tmp_banned">Banned</span>
+  <span class="em_count tmp_banned">{{#unless bannedUntil}}PERM {{/unless}}banned</span>
 {{/if}}

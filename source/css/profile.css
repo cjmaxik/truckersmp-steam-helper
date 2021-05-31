@@ -28,9 +28,29 @@ div.tmp_block div.showcase_stat {
 
 .tmp_banned {
   float: right;
-  color: #000;
   padding: 0 5px;
   border-radius: 2px;
   color: white !important;
   background-color: #ca2842 !important;
+}
+
+.profile_customization_update_text {
+  line-height: 30px;
+  position: absolute;
+  right: 5px;
+  top: 0;
+  padding: 5px;
+}
+
+.showcase_stat.favoritegroup_ingame .value a {
+  color: inherit;
+}
+
+.showcase_stat.favoritegroup_ingame .value a:hover {
+  color: #66C0F4;
+  cursor: pointer;
+}
+
+.showcase_stat.favoritegroup_offline .value {
+  color: #a94847;
 }

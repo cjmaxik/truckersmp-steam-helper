@@ -1,5 +1,5 @@
 import optionsStorage from './options-storage.js'
-import { readFromCache, removeExpiredItems } from './cache'
+import { readFromCache, removeExpiredItems, removeFromCache } from './cache'
 
 // Listeners for a content scripts
 browser.runtime.onMessage.addListener((request, _sender) => {
@@ -31,17 +31,29 @@ const delay = (key) => new Promise(resolve => setTimeout(resolve, key * 150 + Ma
  * @param {String} request.steamId Steam ID
  * @param {String} request.key Delay key
  * @param {?Boolean} request.withGames Check for games if no TMP profile
+ * @param {?Boolean} request.withMap Check for online status
  * @returns {Object}
  */
 const queryPlayer = async (request) => {
-  const playerInfo = await readFromCache(request.steamId, async function () {
+  const key = `player:${request.steamId}`;
+  const playerInfo = await readFromCache(key, async function () {
     await delay(request.key)
     const response = await fetch(`https://api.truckersmp.com/v2/player/${request.steamId}?ref=truckersmp-steam-helper&v=${cacheBusting()}`)
+
     return await response.json()
   })
 
-  if ((!playerInfo.data || playerInfo.data.error) && request.withGames) {
-    playerInfo.games = await queryGames(request)
+  // Check if the user is not registered
+  if (!playerInfo.data || playerInfo.data.error) {
+    removeFromCache(key)
+
+    if (request.withGames) {
+      playerInfo.games = await queryGames(request)
+    }
+  } else {
+    if (request.withMap && !playerInfo.data.response.banned) {
+      playerInfo.online = await queryMap(playerInfo.data.response.id)
+    }
   }
 
   return playerInfo
@@ -63,6 +75,7 @@ const cacheBusting = () => {
  * Check user games
  * @param {Object} request Data object
  * @param {String} request.steamId Steam ID
+ * @returns {Object}
  */
 const queryGames = async (request) => {
   const response = await fetch(`https://steamcommunity.com/profiles/${request.steamId}/games/?xml=1&v=${cacheBusting()}`)
@@ -121,6 +134,21 @@ const queryGames = async (request) => {
   })
 
   return games
+}
+
+/**
+ * Check user online status
+ * @param {string} id TruckersMP ID
+ * @returns {Object}
+ */
+const queryMap = async (id) => {
+  const mapData = await readFromCache(`map:${id}`, async function () {
+    const response = await fetch(`https://traffic.krashnz.com/api/v2/user/${id}?ref=truckersmp-steam-helper&v=${cacheBusting()}`)
+
+    return await response.json()
+  }, 1)
+
+  return !!(!mapData.data.error && mapData.data.response.online);
 }
 
 // Cache governor

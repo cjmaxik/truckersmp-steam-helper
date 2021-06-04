@@ -38,7 +38,7 @@ const queryPlayer = async (request) => {
   const key = `player:${request.steamId}`;
   const playerInfo = await readFromCache(key, async function () {
     await delay(request.key)
-    const response = await fetch(`https://api.truckersmp.com/v2/player/${request.steamId}?ref=truckersmp-steam-helper&v=${cacheBusting()}`)
+    const response = await fetch(`https://api.truckersmp.com/v2/player/${request.steamId}`)
 
     return await response.json()
   })

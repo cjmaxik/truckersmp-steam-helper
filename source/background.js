@@ -35,7 +35,7 @@ const delay = (key) => new Promise(resolve => setTimeout(resolve, key * 150 + Ma
  * @returns {Object}
  */
 const queryPlayer = async (request) => {
-  const key = `player:${request.steamId}`;
+  const key = `player:${request.steamId}`
   const playerInfo = await readFromCache(key, async function () {
     await delay(request.key)
     const response = await fetch(`https://api.truckersmp.com/v2/player/${request.steamId}`)
@@ -143,12 +143,12 @@ const queryGames = async (request) => {
  */
 const queryMap = async (id) => {
   const mapData = await readFromCache(`map:${id}`, async function () {
-    const response = await fetch(`https://traffic.krashnz.com/api/v2/user/${id}?ref=truckersmp-steam-helper&v=${cacheBusting()}`)
+    const response = await fetch(`https://traffic.krashnz.com/api/v2/user/${id}?v=${cacheBusting()}`)
 
     return await response.json()
   }, 1)
 
-  return !!(!mapData.data.error && mapData.data.response.online);
+  return !!(!mapData.data.error && mapData.data.response.online)
 }
 
 // Cache governor

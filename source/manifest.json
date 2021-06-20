@@ -21,7 +21,9 @@
   "permissions": [
     "storage",
     "alarms",
-    "*://steamcommunity.com/*"
+    "*://steamcommunity.com/*",
+    "*://api.truckersmp.com/*",
+    "*://traffic.krashnz.com/*"
   ],
   "options_ui": {
     "page": "options.html"

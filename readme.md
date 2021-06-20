@@ -7,6 +7,12 @@
 
 ### [TruckersMP forum topic](https://forum.truckersmp.com/index.php?/topic/102560-truckersmp-steam-helper/)
 
+## Installation links
+- Google Chrome, Vivaldi - [click here](https://chrome.google.com/webstore/detail/truckersmp-steam-helper/lodcclicinbifbajhlapkolpedcjgbme)
+- Mozilla Firefox - [click here](https://addons.mozilla.org/addon/truckersmp-steam-helper/)
+- Opera (incl. GX) - install [this extension](https://addons.opera.com/en/extensions/details/install-chrome-extensions/) first, then [click here](https://chrome.google.com/webstore/detail/truckersmp-steam-helper/lodcclicinbifbajhlapkolpedcjgbme)
+- Microsoft Edge - [click here](https://chrome.google.com/webstore/detail/truckersmp-steam-helper/lodcclicinbifbajhlapkolpedcjgbme), click "Allow extensions from other stores", then install
+
 ## Screenshots
 ![Profile](/media/profile-registered.png)
 
@@ -21,10 +27,6 @@
 - Various additional settings, including Steam-related
 
 *This extension is inspired by TruckersMP Helper and internal TruckersMP Team tools.*
-
-## Installation
-- Google Chrome - [click here](https://chrome.google.com/webstore/detail/truckersmp-steam-helper/lodcclicinbifbajhlapkolpedcjgbme)
-- Mozilla Firefox - [click here](https://addons.mozilla.org/addon/truckersmp-steam-helper/)
 
 ## For Delevopers
 Install `Node.js` and `npm`, run `npm install` in the project's root folder.

@@ -47,6 +47,7 @@ const queryPlayer = async (request) => {
   if (!playerInfo.data || playerInfo.data.error) {
     removeFromCache(key)
 
+
     if (request.withGames) {
       playerInfo.games = await queryGames(request)
     }

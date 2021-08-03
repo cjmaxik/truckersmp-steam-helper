@@ -1,8 +1,8 @@
 <br/>
 <div class="invite_block_details leftLongInviterSmallText">
   <img src="{{ iconURL }}" alt="Icon" width="10px">
-  <a href="https://truckersmp.com/user/{{ id }}" target="_blank" style="color: #ff1744 !important;">
-    {{ groupName }}
+  <a href="https://truckersmp.com/user/{{ id }}" target="_blank" style="color: {{#if id}}{{ groupColor }}{{else}}#898989{{/if}} !important;">
+    {{#if id}}{{ groupName }}{{else}}¯\_(ツ)_/¯{{/if}}
   </a>
   {{#if vtc}}{{#if vtc.inVTC}} | Member of <a href="https://truckersmp.com/vtc/{{ vtc.id }}" target="_blank">
     {{ vtc.name }}

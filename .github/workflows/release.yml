@@ -15,7 +15,7 @@ jobs:
       created: ${{ steps.daily-version.outputs.created }}
       version: ${{ steps.daily-version.outputs.version }}
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -24,9 +24,6 @@ jobs:
 
       - name: CI & install dependencies
         run: npm ci || npm install
-
-      - name: Run tests (duh)
-        run: npm test
 
       - name: Create tag (if necessary)
         uses: fregante/daily-version-action@v1
@@ -41,7 +38,7 @@ jobs:
           commit-template: '- {title} ← {hash}'
           template: |
             ### Changelog
-            
+
             *To be determined*
 
             ### Commits
@@ -49,7 +46,7 @@ jobs:
             {commits}
 
             {range}
-  
+
   submit:
     name: Submit to stores
     needs: version

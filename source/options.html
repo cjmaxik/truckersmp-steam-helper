@@ -13,36 +13,54 @@
   <div class="content hr">
     <h4>Visibility in Steam</h4>
     <div>
-      <input type="checkbox" name="showInProfile"> Profile
+      <label>
+        <input type="checkbox" name="showInProfile">
+        Profile
+      </label>
     </div>
     <div>
-      <input type="checkbox" name="showInFriends"> Friends <small>(including Blocked, Recently Played With)</small>
+      <label>
+        <input type="checkbox" name="showInFriends">
+        Friends
+      </label> Friends <small>(including Blocked, Recently Played With)</small>
     </div>
     <div>
-      <input type="checkbox" name="showInInvites"> Pending Invites
+      <label>
+        <input type="checkbox" name="showInInvites">
+        Pending Invites
+      </label>
     </div>
   </div>
 
   <div class="content hr">
     <h4>Profile</h4>
     <div>
-      <input type="checkbox" name="showDiscord"> Show Discord Snowflake
+      <label>
+        <input type="checkbox" name="showDiscord">
+        Show Discord Snowflake
+      </label>
     </div>
     <div>
-      <input type="checkbox" name="showPatreon"> Show Patreon info
+      <label>
+        <input type="checkbox" name="showPatreon">
+        Show Patreon info
+      </label>
     </div>
   </div>
 
   <div class="content hr">
     <h4>Friends</h4>
     <div>
-      <input type="checkbox" name="friendsMaxWidth"> Full-width page
+      <label>
+        <input type="checkbox" name="friendsMaxWidth">
+        Full-width page
+      </label>
     </div>
   </div>
 </form>
 
 <div class="text-center">
-  <h5>Settings will be saved immediately</h5>
+  <h5>Changes will be saved immediately</h5>
   <p>
     Version <span id="version"></span><br/>
     <a
@@ -56,6 +74,7 @@
     TruckersMP Forum post
   </a>
   </p>
+  <p><a href="#" id="clear-cache">Clear cache</a></p>
 </div>
 
 </body>

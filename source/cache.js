@@ -44,7 +44,7 @@ const readFromCache = async (key, callback, timeout = 60) => {
  * @param key
  */
 const removeFromCache = (key) => {
-  localStorage.removeItem(key);
+  localStorage.removeItem(key)
 }
 
 /**
@@ -75,4 +75,8 @@ const removeExpiredItems = () => {
   console.groupEnd()
 }
 
-export { readFromCache, removeFromCache, removeExpiredItems }
+const clearCache = () => {
+  localStorage.clear()
+}
+
+export { readFromCache, removeFromCache, removeExpiredItems, clearCache }

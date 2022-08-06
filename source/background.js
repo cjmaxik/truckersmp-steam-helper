@@ -1,6 +1,10 @@
 import optionsStorage from './options-storage.js'
 import { readFromCache, removeExpiredItems, removeFromCache } from './cache'
 
+import { XMLParser } from 'fast-xml-parser'
+
+const TIMEOUT = 1.0
+
 // Listeners for a content scripts
 browser.runtime.onMessage.addListener((request, _sender) => {
   let response = null
@@ -43,14 +47,14 @@ const queryPlayer = async (request) => {
     return await response.json()
   })
 
+  // Grabbing games
+  if (request.withGames) {
+    playerInfo.games = await queryGames(request)
+  }
+
   // Check if the user is not registered
   if (!playerInfo.data || playerInfo.data.error) {
     removeFromCache(key)
-
-
-    if (request.withGames) {
-      playerInfo.games = await queryGames(request)
-    }
   } else {
     if (request.withMap && !playerInfo.data.response.banned) {
       playerInfo.online = await queryMap(playerInfo.data.response.id)
@@ -79,62 +83,83 @@ const cacheBusting = () => {
  * @returns {Object}
  */
 const queryGames = async (request) => {
-  const response = await fetch(`https://steamcommunity.com/profiles/${request.steamId}/games/?xml=1&v=${cacheBusting()}`)
-  const data = await response.text()
+  const key = `games:${request.steamId}`
+  const gamesData = await readFromCache(key, async function () {
+    // Requesting the XML data
+    const response = await fetch(`https://steamcommunity.com/profiles/${request.steamId}/games/?xml=1&v=${cacheBusting()}`)
+    const data = await response.text()
 
-  const parser = new DOMParser()
-  const xmlDoc = parser.parseFromString(data, 'text/xml')
+    // Parsing XML data
+    const parser = new XMLParser({
+      ignoreDeclaration: true,
+      ignorePiTags: true,
+      processEntities: false,
+      parseTagValue: false
+    })
+    const xmlDoc = parser.parse(data)
 
-  const gamesData = xmlDoc.getElementsByTagName('game')
+    /**
+     * @typedef Game Game object
+     * @param {String?} game.hoursOnRecord
+     * @param {String} game.appID
+     */
 
-  const games = {
-    ets2: -1,
-    ats: -1,
-    all: -1,
-    count: 0
-  }
+    /**
+     * Array of games
+     * @param {Object} xmlDoc
+     * @param {Game[]} xmlDoc.gamesList.games.game
+     */
 
-  const gamesArray = Array.from(gamesData)
-  games.count = gamesArray.length
-  if (!games.count) {
-    return games
-  }
+      // We only need games data
+    const gamesData = xmlDoc.gamesList.games.game
 
-  gamesArray.forEach((game) => {
-    // Check for the game existence
-    const gameID = game.getElementsByTagName('appID')[0].textContent
-
-    switch (gameID) {
-      case '227300':
-        games.ets2 = 0
-        break
-
-      case '270880':
-        games.ats = 0
-        break
+    // Games object for the template
+    const games = {
+      ets2: -1,
+      ats: -1,
+      all: -1,
+      count: 0
     }
 
-    // Check the game time
-    const hoursOnRecord = game.getElementsByTagName('hoursOnRecord')[0]
-    if (hoursOnRecord) {
-      const gameTime = Number.parseFloat(hoursOnRecord.textContent)
+    // Games count, 0 means we don't need to go further
+    games.count = gamesData.length
+    if (!games.count) {
+      return games
+    }
 
-      if (['227300', '270880'].includes(gameID)) {
-        switch (gameID) {
-          case '227300':
-            games.ets2 = gameTime
-            break
+    gamesData.forEach(game => {
+      // Parse hoursOnRecord (if available)
+      const gameTime = game.hoursOnRecord ? parseHours(game.hoursOnRecord) : 0
 
-          case '270880':
-            games.ats = gameTime
-        }
-      } else {
-        games.all += gameTime
+      // Grab hoursOnRecord for eligible games
+      switch (game.appID) {
+        case '227300':
+          games.ets2 = gameTime
+          break
+
+        case '270880':
+          games.ats = gameTime
+          break
       }
-    }
-  })
 
-  return games
+      // Calculate all games time (for privacy checks)
+      games.all += gameTime
+    })
+
+    return games
+  }, 1)
+
+  return gamesData.data
+}
+
+/**
+ * Parse hours, minding the comma sign
+ * @param {String} hours
+ */
+function parseHours (hours) {
+  hours = hours.replaceAll(',', '')
+  console.log('hours', hours)
+  return Number.parseFloat(hours)
 }
 
 /**
@@ -154,5 +179,5 @@ const queryMap = async (id) => {
 
 // Cache governor
 removeExpiredItems()
-browser.alarms.create({ periodInMinutes: 10.0 })
+browser.alarms.create({ periodInMinutes: TIMEOUT })
 browser.alarms.onAlarm.addListener(removeExpiredItems)

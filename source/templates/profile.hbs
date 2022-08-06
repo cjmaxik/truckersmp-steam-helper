@@ -55,35 +55,61 @@
 
             <div class="favoritegroup_stats showcase_stats_row">
               <div class="showcase_stat">
-                <div class="value">{{ id }}</div>
                 <div class="label">TMP ID</div>
+                <div class="value">{{ id }}</div>
               </div>
 
               {{#if bansCount}}
                 <div class="showcase_stat favoritegroup_online">
-                  <div class="value">{{ bansCount }}</div>
                   <div class="label">Active Bans</div>
+                  <div class="value">{{ bansCount }}</div>
                 </div>
               {{/if}}
 
               {{#unless banned}}
                 {{#if online}}
                   <div class="showcase_stat favoritegroup_ingame">
-                    <div class="value">
-                      <a href="https://map.truckersmp.com/follow/{{ id }}?ref=truckersmp-steam-helper" target="_blank" data-tooltip-html="Click to follow on the map">Online</a>
-                    </div>
                     <div class="label">TMP Status</div>
+                    <div class="value">
+                      <a href="https://map.truckersmp.com/follow/{{ id }}?ref=truckersmp-steam-helper" target="_blank"
+                         data-tooltip-html="Click to follow on the map">Online</a>
+                    </div>
                   </div>
                 {{/if}}
 
                 {{#unless online}}
                   <div class="showcase_stat favoritegroup_offline">
-                    <div class="value">Offline</div>
                     <div class="label">TMP Status</div>
+                    <div class="value">Offline</div>
                   </div>
                 {{/unless}}
               {{/unless}}
 
+              {{#ifNotEligible ets2}}
+                <div class="showcase_stat favoritegroup_offline">
+                  <div class="label">ETS2</div>
+                  <div class="value">
+                    {{#ifEquals ets2 -1}}
+                      Not found
+                    {{else}}
+                      {{ ets2 }} h
+                    {{/ifEquals}}
+                  </div>
+                </div>
+              {{/ifNotEligible}}
+
+              {{#ifNotEligible ats}}
+                <div class="showcase_stat favoritegroup_offline">
+                  <div class="label">ATS</div>
+                  <div class="value">
+                    {{#ifEquals ats -1}}
+                      Not found
+                    {{else}}
+                      {{ ats }} h
+                    {{/ifEquals}}
+                  </div>
+                </div>
+              {{/ifNotEligible}}
               <div style="clear: left;"></div>
             </div>
           </div>

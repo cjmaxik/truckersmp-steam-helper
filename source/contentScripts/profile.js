@@ -3,6 +3,10 @@ Handlebars.registerHelper('ifEquals', function (arg1, arg2, options) {
   return (arg1 === arg2) ? options.fn(this) : options.inverse(this)
 })
 
+Handlebars.registerHelper('ifNotEligible', function (arg1, options) {
+  return arg1 <= 2.0 ? options.fn(this) : options.inverse(this)
+})
+
 const profileTemplate = require('../templates/profile.hbs')
 const noProfileTemplate = require('../templates/noProfile.hbs')
 
@@ -59,7 +63,7 @@ const queryPlayer = (steamId, options) => {
     }
   ).then((playerInfo) => {
     if (playerInfo.data && !playerInfo.data.error) {
-      return renderProfile(playerInfo.data.response, playerInfo.online, options, playerInfo.timeout)
+      return renderProfile(playerInfo.data.response, playerInfo.online, options, playerInfo.timeout, playerInfo.games)
     }
     console.warn('Something wrong with TruckersMP data! Looking for the games on Steam profile...', playerInfo)
 
@@ -91,19 +95,23 @@ const renderNoProfile = (games, options) => {
  * @param {Boolean} online
  * @param {Object} options
  * @param {string} timeout
+ * @param {Object} games
  */
-const renderProfile = (player, online, options, timeout) => {
+const renderProfile = (player, online, options, timeout, games) => {
   if (player) {
     player = currentTier(player)
   }
 
   timeout = new Date(timeout).toLocaleString()
 
+  console.log(games)
+
   const template = profileTemplate({
     ...player,
     online,
     ...options,
     timeout,
+    ...games,
     iconURL: browser.extension.getURL('icons/tmp.png')
   })
 

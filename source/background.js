@@ -1,5 +1,5 @@
 import optionsStorage from './options-storage.js'
-import { readFromCache, removeExpiredItems, removeFromCache } from './cache'
+import { clearCache, readFromCache, removeExpiredItems, removeFromCache } from './cache'
 
 import { XMLParser } from 'fast-xml-parser'
 
@@ -47,18 +47,19 @@ const queryPlayer = async (request) => {
     return await response.json()
   })
 
-  // Grabbing games
-  if (request.withGames) {
-    playerInfo.games = await queryGames(request)
-  }
-
   // Check if the user is not registered
   if (!playerInfo.data || playerInfo.data.error) {
     removeFromCache(key)
   } else {
+    // Grabbing map
     if (request.withMap && !playerInfo.data.response.banned) {
       playerInfo.online = await queryMap(playerInfo.data.response.id)
     }
+  }
+
+  // Grabbing games
+  if (request.withGames) {
+    playerInfo.games = await queryGames(request)
   }
 
   return playerInfo
@@ -111,7 +112,7 @@ const queryGames = async (request) => {
      */
 
       // We only need games data
-    const gamesData = xmlDoc.gamesList.games.game
+    const gamesData = xmlDoc.gamesList.games.game ?? null
 
     // Games object for the template
     const games = {
@@ -119,6 +120,11 @@ const queryGames = async (request) => {
       ats: -1,
       all: -1,
       count: 0
+    }
+
+    // Fallback if no games data
+    if (gamesData === null) {
+      return games
     }
 
     // Games count, 0 means we don't need to go further
@@ -158,7 +164,6 @@ const queryGames = async (request) => {
  */
 function parseHours (hours) {
   hours = hours.replaceAll(',', '')
-  console.log('hours', hours)
   return Number.parseFloat(hours)
 }
 
@@ -181,3 +186,9 @@ const queryMap = async (id) => {
 removeExpiredItems()
 browser.alarms.create({ periodInMinutes: TIMEOUT })
 browser.alarms.onAlarm.addListener(removeExpiredItems)
+
+// Clear cache prematurely after an update
+browser.runtime.onInstalled.addListener(details => {
+  console.log(`Clearing the cache prematurely:`, details.reason)
+  clearCache()
+})

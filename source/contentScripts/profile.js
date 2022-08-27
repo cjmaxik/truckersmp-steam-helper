@@ -67,10 +67,8 @@ const queryPlayer = (steamId, options) => {
     }
     console.warn('Something wrong with TruckersMP data! Looking for the games on Steam profile...', playerInfo)
 
-    if (playerInfo.games) {
-      return renderNoProfile(playerInfo.games, options)
-    }
-    console.error('Something wrong with the Steam profile! Aborted.')
+    // Return 'no profile' template no matter what
+    return renderNoProfile(playerInfo.games, options)
   })
 }
 

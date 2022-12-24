@@ -2,8 +2,14 @@
 
 > Chrome / Firefox extension to provide useful information about TruckersMP players in Steam.
 
+---
+
+# Deprecation notice
+**This extension is now fully-featured and complete, no updates will be performed. It should work as long as Chrome v2 manifest is available.**
+
+---
+
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/cjmaxik/truckersmp-steam-helper?style=flat-square&label=Release&logo=github) ![Chrome Web Store](https://img.shields.io/chrome-web-store/v/lodcclicinbifbajhlapkolpedcjgbme?label=Chrome&style=flat-square&logo=google-chrome) ![Mozilla Add-on](https://img.shields.io/amo/v/truckersmp-steam-helper@cjmaxik.github.com?label=Firefox&style=flat-square&logo=firefox)
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cjmaxik/truckersmp-steam-helper/Release?label=Release%20build&style=flat-square) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/cjmaxik/truckersmp-steam-helper/CodeQL?label=CodeQL&style=flat-square)
 
 ### [TruckersMP forum topic](https://forum.truckersmp.com/index.php?/topic/102560-truckersmp-steam-helper/)
 
